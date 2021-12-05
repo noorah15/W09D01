@@ -37,10 +37,11 @@ export default function Tasks() {
   const addTask = async () => {
     try {
       const userId = localStorage.getItem("ID");
+      const id = localStorage.getItem("ID");
       console.log(token);
       const result = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/task/create`,
-        { name: taskAdd, user: userId, userId },
+        { name: taskAdd, user: userId, userId, id },
         { headers: { authorization: `Bearer ${token}` } }
       );
       console.log(result.data);
@@ -52,10 +53,10 @@ export default function Tasks() {
 
   const updateTask = async (taskId, userId) => {
     try {
-      //const userId = localStorage.getItem("ID");
+      const id = localStorage.getItem("ID");
       const result = await axios.put(
         `${process.env.REACT_APP_BASE_URL}/task/todoUpdate`,
-        { taskId, userId, taskName: taskUpdate },
+        { taskId, userId, taskName: taskUpdate, id },
         { headers: { authorization: `Bearer ${token}` } }
       );
       console.log(result.data);
@@ -67,10 +68,11 @@ export default function Tasks() {
 
   const deleteTask = async (taskId, userId) => {
     try {
+      const id = localStorage.getItem("ID");
       const result = await axios.delete(
         `${process.env.REACT_APP_BASE_URL}/task/todoDel`,
         {
-          data: { userId, taskId },
+          data: { userId, taskId, id },
           headers: { authorization: `Bearer ${token}` },
         }
       );
